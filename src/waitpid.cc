@@ -24,6 +24,8 @@ void Waitpid(const FunctionCallbackInfo<Value>& args) {
     } while (r != -1);
 
     Local<Object> result = Object::New(isolate);
+    
+    args.GetReturnValue().Set(result);
 
     if (WIFEXITED(status)) {
       result->Set(context,String::NewFromUtf8Literal(isolate, "exitCode"), Integer::New(isolate, WEXITSTATUS(status)));
