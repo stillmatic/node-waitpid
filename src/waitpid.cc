@@ -16,7 +16,7 @@ void Waitpid(const FunctionCallbackInfo<Value>& args) {
   int r, child, status;
 
   if (args[0]->IsInt32()) {
-    child = args[0]->Int32Value();
+    child = args[0]->Int32Value()->ToChecked();
 
     do {
       r = waitpid(child, &status, 0);
@@ -25,13 +25,13 @@ void Waitpid(const FunctionCallbackInfo<Value>& args) {
     Local<Object> result = Object::New(isolate);
 
     if (WIFEXITED(status)) {
-      result->Set(String::NewFromUtf8(isolate, "exitCode"), Integer::New(isolate, WEXITSTATUS(status)));
-      result->Set(String::NewFromUtf8(isolate, "signalCode"), Null(isolate));
+      result->Set(context,String::NewFromUtf8(isolate, "exitCode"), Integer::New(isolate, WEXITSTATUS(status)));
+      result->Set(context,String::NewFromUtf8(isolate, "signalCode"), Null(isolate));
       return;
     }
     else if (WIFSIGNALED(status)) {
-      result->Set(String::NewFromUtf8(isolate, "exitCode"), Null(isolate));
-      result->Set(String::NewFromUtf8(isolate, "signalCode"), Integer::New(isolate, WTERMSIG(status)));
+      result->Set(context,String::NewFromUtf8(isolate, "exitCode"), Null(isolate));
+      result->Set(context,String::NewFromUtf8(isolate, "signalCode"), Integer::New(isolate, WTERMSIG(status)));
       return;
     }
   }
