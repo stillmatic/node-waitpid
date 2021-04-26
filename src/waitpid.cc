@@ -26,18 +26,18 @@ void Waitpid(const FunctionCallbackInfo<Value>& args) {
     Local<Object> result = Object::New(isolate);
 
     if (WIFEXITED(status)) {
-      result->Set(context,String::NewFromUtf8(isolate, "exitCode"), Integer::New(isolate, WEXITSTATUS(status)));
-      result->Set(context,String::NewFromUtf8(isolate, "signalCode"), Null(isolate));
+      result->Set(context,String::NewFromUtf8Literal(isolate, "exitCode"), Integer::New(isolate, WEXITSTATUS(status)));
+      result->Set(context,String::NewFromUtf8Literal(isolate, "signalCode"), Null(isolate));
       return;
     }
     else if (WIFSIGNALED(status)) {
-      result->Set(context,String::NewFromUtf8(isolate, "exitCode"), Null(isolate));
-      result->Set(context,String::NewFromUtf8(isolate, "signalCode"), Integer::New(isolate, WTERMSIG(status)));
+      result->Set(context,String::NewFromUtf8Literal(isolate, "exitCode"), Null(isolate));
+      result->Set(context,String::NewFromUtf8Literal(isolate, "signalCode"), Integer::New(isolate, WTERMSIG(status)));
       return;
     }
   }
   else {
-      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8(isolate, "Not an integer.")));
+      isolate->ThrowException(Exception::TypeError(String::NewFromUtf8Literal(isolate, "Not an integer.")));
   }
 }
 
