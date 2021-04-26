@@ -45,4 +45,4 @@ void Initialize(Local<Object> exports) {
   NODE_SET_METHOD(exports, "waitpid", Waitpid);
 }
 
-NODE_MODULE(waitpid, init)
+NODE_MODULE(waitpid, Initialize)
