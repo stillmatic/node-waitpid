@@ -11,12 +11,13 @@ using namespace node;
 
 void Waitpid(const FunctionCallbackInfo<Value>& args) {
   Isolate* isolate = Isolate::GetCurrent();
+  Local<Context> context = isolate->GetCurrentContext();
   HandleScope scope(isolate);
 
   int r, child, status;
 
   if (args[0]->IsInt32()) {
-    child = args[0]->Int32Value()->ToChecked();
+    child = args[0]->Int32Value(context);
 
     do {
       r = waitpid(child, &status, 0);
