@@ -17,7 +17,7 @@ void Waitpid(const FunctionCallbackInfo<Value>& args) {
   int r, child, status;
 
   if (args[0]->IsInt32()) {
-    child = args[0]->Int32Value(context);
+    child = args[0]->Int32Value(context).ToChecked();
 
     do {
       r = waitpid(child, &status, 0);
