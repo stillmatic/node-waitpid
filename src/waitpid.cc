@@ -41,9 +41,8 @@ void Waitpid(const FunctionCallbackInfo<Value>& args) {
   }
 }
 
-extern "C" void init(Handle<Object> exports) {
+void Initialize(Local<Object> exports) {
   NODE_SET_METHOD(exports, "waitpid", Waitpid);
 }
-
 
 NODE_MODULE(waitpid, init)
