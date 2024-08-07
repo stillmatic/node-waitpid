@@ -1,4 +1,7 @@
 {
+  "variables": {
+    "enable_lto": 0
+  },
   "targets": [
     {
       "target_name": "waitpid",
